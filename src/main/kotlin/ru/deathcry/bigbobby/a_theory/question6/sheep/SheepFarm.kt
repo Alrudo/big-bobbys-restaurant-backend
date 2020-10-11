@@ -36,8 +36,7 @@ class SheepFarm {
      */
     fun addSheep(name: String, age: Int, color: String) {
         if (age < 0) throw InvalidDataException("Sheep can not have age lower than 0.")
-        sheeps[id] = Sheep(id, name, age, color)
-        id++
+        sheeps[id] = Sheep(id++, name, age, color)
     }
 
     /**
@@ -75,7 +74,6 @@ class SheepFarm {
      * @return Boolean whether the Sheep object was removed or not.
      */
     fun removeSheep(id: Long): Boolean {
-        val sheep = sheeps.remove(id)
-        return sheep != null
+        return sheeps.remove(id) != null
     }
 }
