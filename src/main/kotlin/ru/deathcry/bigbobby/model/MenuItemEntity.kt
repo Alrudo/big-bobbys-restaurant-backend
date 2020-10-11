@@ -5,23 +5,23 @@ import javax.persistence.*
 @Entity
 @Table(name = "menu")
 public class MenuItemEntity(
-        @Column(length = 32)
+    @Column(length = 32)
     val name: String = "",
 
-        @Column(length = 64)
+    @Column(length = 64)
     val lang_key: String = "",
 
-        @Column(nullable = true)
+    @Column(nullable = true)
     @OneToMany(cascade = [CascadeType.ALL])
     val ingredients: List<IngredientEntity>? = null,
 
-        @Column
+    @Column
     val price: Double = 0.0,
 
-        @Column
+    @Column
     val weight: Double = 0.0,
 
-        @Column
+    @Column
     val keywords: String = ""
 ) {
     @Id

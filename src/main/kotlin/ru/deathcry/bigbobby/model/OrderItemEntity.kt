@@ -5,14 +5,14 @@ import javax.persistence.*
 @Entity
 @Table(name = "order_items")
 public class OrderItemEntity(
-        @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     val order: OrderEntity = OrderEntity(),
 
-        @JoinColumn
+    @JoinColumn
     @OneToOne(cascade = [CascadeType.ALL])
     val item: MenuItemEntity = MenuItemEntity(),
 
-        @Column
+    @Column
     val amount: Int = 1
 
 ) {

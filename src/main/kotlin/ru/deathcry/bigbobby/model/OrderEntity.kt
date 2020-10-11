@@ -5,21 +5,21 @@ import javax.persistence.*
 @Entity
 @Table(name = "orders")
 public class OrderEntity(
-        @Column(length = 24)
+    @Column(length = 24)
     val name: String = "",
 
-        @Column(length = 16)
+    @Column(length = 16)
     val phone: String = "",
 
-        @JoinColumn(nullable = true)
+    @JoinColumn(nullable = true)
     @OneToOne(cascade = [CascadeType.ALL])
     val customer: CustomerEntity? = null,
 
-        @Column
+    @Column
     @OneToMany(
-        mappedBy = "order",
-        cascade = [CascadeType.ALL],
-        orphanRemoval = true
+    mappedBy = "order",
+    cascade = [CascadeType.ALL],
+    orphanRemoval = true
     )
     val items: List<OrderItemEntity> = listOf()
 
