@@ -77,14 +77,29 @@ class SheepFarm {
         return sheeps.remove(id) != null
     }
 
+    /**
+     * Get sheep name by its id.
+     *
+     * @return sheeps name as String if sheep with given id exists else returns null
+     */
     fun getName(id: Long): String? {
         return sheeps[id]?.name
     }
 
+    /**
+     * Get sheep age by its id.
+     *
+     * @return sheeps age as Integer if sheep with given id exists else returns null
+     */
     fun getAge(id: Long): Int? {
         return sheeps[id]?.age
     }
 
+    /**
+     * Get sheep color by its id.
+     *
+     * @return sheeps color as String if sheep with given id exists else returns null
+     */
     fun getColor(id: Long): String? {
         return sheeps[id]?.color
     }
