@@ -24,14 +24,58 @@ class SheepFarm {
     // Special code is just a number. It's a basic incrementing number, but I call it special because I can.
     // I want to access sheep details, it's name, age, everything using that code.
     // That's it. Can you do that for me?
-    //todo here are some examples of empty methods
-    fun emptyMethodReturnList(): List<Sheep> {
-        return listOf()
+    //todo here are some examples of empty
+
+    private var id: Long = 0
+    private val sheeps: MutableMap<Long, Sheep> = mutableMapOf()
+
+    /**
+     * Add new sheep to the farm and pass it given name, age and color as well as assign it a unique id.
+     *
+     * @throws InvalidDataException when the sheep age given is below 0.
+     */
+    fun addSheep(name: String, age: Int, color: String) {
+        if (age < 0) throw InvalidDataException("Sheep can not have age lower than 0.")
+        sheeps[id] = Sheep(id, name, age, color)
+        id++
     }
 
-    fun emptyMethodReturn1(): Sheep {
-        return Sheep()
+    /**
+     * Collect all sheeps from MutableMap into a list and sort them by their id.
+     *
+     * @return List of Sheeps objects sorted by their id number.
+     */
+    fun getAllSheeps(): List<Sheep> {
+        return sheeps.values.toList().sortedBy { it.id }
     }
 
-    fun emptyMethodVoid() {}
+    /**
+     * Get a certain sheep by its id.
+     *
+     * @return returns Sheep object if such exists, otherwise returns null.
+     */
+    fun getSheep(id: Long): Sheep? {
+        return sheeps[id]
+    }
+
+    /**
+     * Remove the specified sheep from the farm by its object.
+     *
+     * @return Boolean whether the Sheep object was removed or not.
+     */
+    fun removeSheep(sheep: Sheep): Boolean {
+        val id = sheeps.filterValues { it == sheep }.keys.firstOrNull() ?: return false
+        sheeps.remove(id)
+        return true
+    }
+
+    /**
+     * Remove the specified sheep from the farm by its id.
+     *
+     * @return Boolean whether the Sheep object was removed or not.
+     */
+    fun removeSheep(id: Long): Boolean {
+        val sheep = sheeps.remove(id)
+        return sheep != null
+    }
 }
