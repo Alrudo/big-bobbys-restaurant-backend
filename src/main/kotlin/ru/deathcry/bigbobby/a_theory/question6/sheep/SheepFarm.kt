@@ -40,7 +40,7 @@ class SheepFarm {
     }
 
     /**
-     * Collect all sheeps from MutableMap into a list and sort them by their id.
+     * Collect all sheeps from MutableMap into a List and sort them by their id.
      *
      * @return List of Sheeps objects sorted by their id number.
      */
@@ -75,5 +75,17 @@ class SheepFarm {
      */
     fun removeSheep(id: Long): Boolean {
         return sheeps.remove(id) != null
+    }
+
+    fun getName(id: Long): String? {
+        return sheeps[id]?.name
+    }
+
+    fun getAge(id: Long): Int? {
+        return sheeps[id]?.age
+    }
+
+    fun getColor(id: Long): String? {
+        return sheeps[id]?.color
     }
 }
