@@ -4,24 +4,24 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "orders")
-public class Order(
-    @Column(length = 24)
+public class OrderEntity(
+        @Column(length = 24)
     val name: String = "",
 
-    @Column(length = 16)
+        @Column(length = 16)
     val phone: String = "",
 
-    @JoinColumn(nullable = true)
+        @JoinColumn(nullable = true)
     @OneToOne(cascade = [CascadeType.ALL])
-    val customer: Customer? = null,
+    val customer: CustomerEntity? = null,
 
-    @Column
+        @Column
     @OneToMany(
         mappedBy = "order",
         cascade = [CascadeType.ALL],
         orphanRemoval = true
     )
-    val items: List<OrderItem> = listOf()
+    val items: List<OrderItemEntity> = listOf()
 
 ) {
     @Id

@@ -5,7 +5,7 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "ingredients")
-public class Ingredient(
+public class IngredientEntity(
     @Column(length = 32)
     val name: String = "",
 

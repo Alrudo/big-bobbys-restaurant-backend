@@ -4,7 +4,7 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "customers")
-public class Customer(
+public class CustomerEntity(
     @Column(name = "email", length = 64)
     val email: String = "",
 
