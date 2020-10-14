@@ -1,5 +1,6 @@
 package ru.deathcry.bigbobby.model
 
+import ru.deathcry.bigbobby.model.converter.StringListConverter
 import javax.persistence.*
 
 @Entity
@@ -11,9 +12,8 @@ public class MenuItemEntity(
     @Column(length = 64)
     val lang_key: String = "",
 
-    @Column(nullable = true)
-    @OneToMany(cascade = [CascadeType.ALL])
-    val ingredients: List<IngredientEntity>? = null,
+    @ManyToMany(cascade = [CascadeType.ALL])
+    val ingredients: List<IngredientEntity> = mutableListOf(),
 
     @Column
     val price: Double = 0.0,
@@ -21,8 +21,9 @@ public class MenuItemEntity(
     @Column
     val weight: Double = 0.0,
 
-    @Column
-    val keywords: String = ""
+    @Column(nullable = true)
+    @Convert(converter = StringListConverter::class)
+    val keywords: List<String> = mutableListOf()
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

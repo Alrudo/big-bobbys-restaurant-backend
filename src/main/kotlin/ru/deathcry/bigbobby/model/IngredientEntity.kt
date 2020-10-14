@@ -17,7 +17,7 @@ public class IngredientEntity(
 
     @Column(nullable = true)
     @Convert(converter = StringListConverter::class)
-    val allergens: String? = null
+    val allergens: List<String> = listOf()
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
