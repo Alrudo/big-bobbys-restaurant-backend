@@ -2,27 +2,31 @@ package ru.deathcry.bigbobby.controller
 
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import ru.deathcry.bigbobby.dto.IngredientDto
 import ru.deathcry.bigbobby.dto.MenuItemDto
-import ru.deathcry.bigbobby.model.IngredientEntity
-import ru.deathcry.bigbobby.model.MenuItemEntity
-import ru.deathcry.bigbobby.repository.IngredientRepository
-import ru.deathcry.bigbobby.repository.MenuRepository
+import ru.deathcry.bigbobby.service.KitchenService
 
 @RestController
 @RequestMapping("/menu")
 class MenuController(
-        var menuRepo: MenuRepository,
-        var ingredientRepo: IngredientRepository
+        var kitchen: KitchenService
 ) {
 
     @GetMapping
-    fun findAll(): List<MenuItemDto> {
-        return menuRepo.findAll().toList().map { MenuItemDto(it) }
+    fun listDishes(
+            @RequestParam(defaultValue = "0") page: Int,
+            @RequestParam(defaultValue = "12") pageSize: Int
+    ): List<MenuItemDto> {
+        return kitchen.listDishes(page, pageSize)
     }
 
     @GetMapping("/ingredient")
-    fun findAllIngredients(): List<IngredientEntity> {
-        return ingredientRepo.findAll().toList()
+    fun listIngredients(
+            @RequestParam(defaultValue = "0") page: Int,
+            @RequestParam(defaultValue = "12") pageSize: Int
+    ): List<IngredientDto> {
+        return kitchen.listIngredients(page, pageSize)
     }
 }
