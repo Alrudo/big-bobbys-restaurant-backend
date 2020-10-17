@@ -31,36 +31,50 @@ class Chocolate {
     // Can you do this? I need this system tomorrow!
     //todo here are some examples of empty methods
 
+
+    @PostMapping
+    fun addCake(
+            @RequestParam size: String,
+            @RequestParam sweetness: String,
+            @RequestParam(required = false) ingredients: String?,
+            @RequestParam(required = false) toppings: String?
+    ): Cake {
+        // Adds new cake to repo
+        return emptyMethodReturn1()
+    }
+
     @GetMapping
-    fun getCakes(
-            @RequestParam(required = false) size: String?,
-            @RequestParam(required = false) sweetness: String?,
+    fun searchCakes(
             @RequestParam(required = false) ingredients: String?,
             @RequestParam(required = false) toppings: String?
     ): List<Cake> {
         // Return all cakes if no search parameters were given
-        if(listOfNotNull(size, sweetness, ingredients, toppings).isEmpty()){
+        if(listOfNotNull(ingredients, toppings).isEmpty()){
             return emptyMethodReturnList()
         }
-        // TODO: return cakes that match to searching criterias
-        // return cakesRepo.findAll().filter{ ... }
 
-        return listOf()
+        // returns cakes that match to searching criterias
+
+        return emptyMethodReturnList()
     }
 
-    @PostMapping
-    fun addCake(
-            @RequestBody cake: Cake
+    @GetMapping("/{id}")
+    fun getCakeById(
+            @PathVariable id: String
     ): Cake {
-        // Adds new cake to repo, id in request body should be null to auto generate it via database
+        // return exact cake by ID
         return emptyMethodReturn1()
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     fun updateCake(
-            @RequestBody cake: Cake
+            @PathVariable id: Long,
+            @RequestParam(required = false) size: String?,
+            @RequestParam(required = false) sweetness: String?,
+            @RequestParam(required = false) ingredients: String?,
+            @RequestParam(required = false) toppings: String?
     ): Cake {
-        // finds cake by ID and updates it with data request body
+        // finds cake by ID and updates it with Request Params
         return emptyMethodReturn1()
     }
 
