@@ -1,5 +1,10 @@
 package ru.deathcry.bigbobby.a_theory.question6.chocolate
 
+import org.springframework.stereotype.Controller
+import org.springframework.web.bind.annotation.*
+
+@Controller
+@RequestMapping("cakes")
 class Chocolate {
     //todo for question 6 there are 4 assignments in total
     // Each person has to do only 1. So 2 person team has to do 2 different ones, 3 person - 3, 4 person - 4.
@@ -25,6 +30,40 @@ class Chocolate {
     // I take existing Sachertorte and I make it better and next week I make it better and next week...
     // Can you do this? I need this system tomorrow!
     //todo here are some examples of empty methods
+
+    @GetMapping
+    fun getCakes(
+            @RequestParam(required = false) size: String?,
+            @RequestParam(required = false) sweetness: String?,
+            @RequestParam(required = false) ingredients: String?,
+            @RequestParam(required = false) toppings: String?
+    ): List<Cake> {
+        // Return all cakes if no search parameters were given
+        if(listOfNotNull(size, sweetness, ingredients, toppings).isEmpty()){
+            return emptyMethodReturnList()
+        }
+        // TODO: return cakes that match to searching criterias
+        // return cakesRepo.findAll().filter{ ... }
+
+        return listOf()
+    }
+
+    @PostMapping
+    fun addCake(
+            @RequestBody cake: Cake
+    ): Cake {
+        // Adds new cake to repo, id in request body should be null to auto generate it via database
+        return emptyMethodReturn1()
+    }
+
+    @PutMapping
+    fun updateCake(
+            @RequestBody cake: Cake
+    ): Cake {
+        // finds cake by ID and updates it with data request body
+        return emptyMethodReturn1()
+    }
+
     fun emptyMethodReturnList(): List<Cake> {
         return listOf()
     }
