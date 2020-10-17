@@ -1,8 +1,7 @@
 package ru.deathcry.bigbobby.a_theory.question6.sheep
 
 import org.springframework.stereotype.Controller
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.*
 
 @Controller
 @RequestMapping("sheep")
@@ -58,6 +57,7 @@ class SheepFarm {
     // That's it. Can you do that for me?
     //todo here are some examples of empty methods
 
+    @PostMapping
     fun addSheep(
             @RequestParam id: Long,
             @RequestParam name: String,
@@ -65,21 +65,22 @@ class SheepFarm {
             @RequestParam color: String
     ): Sheep {
         // Creates new instance of Sheep and adds it to the DB.
-        // New Sheep creation throws Exception if sheep age given is Less than 0.
         return emptyMethodReturn1()
     }
 
+    @DeleteMapping
     fun removeSheep(
             @RequestParam id: Long
     ) {
-        // Removes the sheep from DB by given id.
+        // Removes the sheep from DB by given collar code(id) if exists in DB.
         return emptyMethodVoid()
     }
 
+    @GetMapping
     fun getSheep(
             @RequestParam id: Long
     ): Sheep? {
-        // Returns sheep by the given ID or null if no such sheep exist in DB.
+        // Returns sheep by the given collar code(id) or empty json if no such sheep exist in DB.
         return emptyMethodReturn1()
     }
 
