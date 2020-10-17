@@ -65,6 +65,7 @@ class SheepFarm {
             @RequestParam color: String
     ): Sheep {
         // Creates new instance of Sheep and adds it to the DB.
+        // New Sheep creation throws Exception if sheep age given is Less than 0.
         return emptyMethodReturn1()
     }
 
