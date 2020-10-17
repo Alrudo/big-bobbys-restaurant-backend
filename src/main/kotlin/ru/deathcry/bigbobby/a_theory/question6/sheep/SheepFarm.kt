@@ -59,26 +59,25 @@ class SheepFarm {
 
     @PostMapping
     fun addSheep(
-            @RequestParam id: Long,
             @RequestParam name: String,
             @RequestParam age: Int,
             @RequestParam color: String
     ): Sheep {
-        // Creates new instance of Sheep and adds it to the DB.
+        // Creates new instance of Sheep, adds it to the DB and returns it as response.
         return emptyMethodReturn1()
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     fun removeSheep(
-            @RequestParam id: Long
+            @PathVariable id: Long
     ) {
         // Removes the sheep from DB by given collar code(id) if exists in DB.
         return emptyMethodVoid()
     }
 
-    @GetMapping
+    @GetMapping("/{id}")
     fun getSheep(
-            @RequestParam id: Long
+            @PathVariable id: Long
     ): Sheep? {
         // Returns sheep by the given collar code(id) or empty json if no such sheep exist in DB.
         return emptyMethodReturn1()
