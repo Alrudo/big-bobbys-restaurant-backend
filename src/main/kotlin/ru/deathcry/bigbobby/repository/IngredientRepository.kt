@@ -5,4 +5,6 @@ import org.springframework.stereotype.Repository
 import ru.deathcry.bigbobby.model.IngredientEntity
 
 @Repository
-interface IngredientRepository : PagingAndSortingRepository<IngredientEntity, Long>
+interface IngredientRepository : PagingAndSortingRepository<IngredientEntity, Long>{
+    fun findByName(name: String): IngredientEntity
+}

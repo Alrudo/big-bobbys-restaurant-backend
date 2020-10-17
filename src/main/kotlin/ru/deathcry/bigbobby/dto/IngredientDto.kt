@@ -1,9 +1,7 @@
 package ru.deathcry.bigbobby.dto
 
 import ru.deathcry.bigbobby.model.IngredientEntity
-import ru.deathcry.bigbobby.model.converter.StringListConverter
 import ru.deathcry.bigbobby.util.IMorphable
-import javax.persistence.*
 
 data class IngredientDto(
     val name: String = "",
