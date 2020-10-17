@@ -1,56 +1,54 @@
-package ru.deathcry.bigbobby.service
+package ru.deathcry.bigbobby
 
-import org.springframework.data.domain.PageRequest
-import org.springframework.data.domain.Pageable
-import org.springframework.stereotype.Service
-import ru.deathcry.bigbobby.dto.IngredientDto
-import ru.deathcry.bigbobby.dto.MenuItemDto
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Test
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager
 import ru.deathcry.bigbobby.model.CustomerEntity
 import ru.deathcry.bigbobby.model.IngredientEntity
 import ru.deathcry.bigbobby.model.MenuItemEntity
-import ru.deathcry.bigbobby.model.OrderEntity
 import ru.deathcry.bigbobby.repository.CustomerRepository
 import ru.deathcry.bigbobby.repository.IngredientRepository
 import ru.deathcry.bigbobby.repository.MenuRepository
-import ru.deathcry.bigbobby.repository.OrderRepository
-import ru.deathcry.bigbobby.util.morph
 
 
-@Service
-class KitchenService(
-        var menuRepo: MenuRepository,
-        var orderRepo: OrderRepository,
-        var customerRepo: CustomerRepository,
-        var ingredientRepo: IngredientRepository
-) {
+@DataJpaTest
+class RepoTests {
 
-    fun listDishes(page: Int, pageSize: Int): List<MenuItemDto> {
-        val paging: Pageable = PageRequest.of(page, pageSize)
-        return menuRepo.findAll(paging).toList().map { MenuItemDto(it) }
+    @Autowired
+    lateinit var entityManager: TestEntityManager
+
+    @Autowired
+    lateinit var customerRepo: CustomerRepository
+
+    @Autowired
+    lateinit var ingRepo: IngredientRepository
+
+    @Autowired
+    lateinit var menuRepo: MenuRepository
+
+    @Test
+    fun testCustomerRepo() {
+        val alex = entityManager.persist(
+                CustomerEntity("alex@mail.ru", "123123123", "alex", "beerpongovich", "+37256565656")
+        )
+        val oleg = entityManager.persist(
+                CustomerEntity("oleshka.pjureshka@gmail.com", "123123123", "oleg", "sidorov", "+37256999666")
+        )
+        entityManager.flush()
+
+        val byId: CustomerEntity? = customerRepo.findById(1).get()
+        val byLastname: CustomerEntity? = customerRepo.findByLastName(oleg.lastName).firstOrNull()
+        val all: List<CustomerEntity> = customerRepo.findAll().toList()
+
+        Assertions.assertEquals(alex.phone, byId?.phone)
+        Assertions.assertEquals(oleg.email, byLastname?.email)
+        Assertions.assertEquals(2, all.size)
     }
 
-    fun searchDish(name: String): MenuItemDto {
-        return menuRepo.findByName(name).morph()
-    }
-
-    fun addNewDish(dish: MenuItemDto) {
-        val dishEntity = dish.morph()
-        menuRepo.save(dishEntity)
-    }
-
-    fun listIngredients(page: Int, pageSize: Int): List<IngredientDto> {
-        val paging: Pageable = PageRequest.of(page, pageSize)
-        return ingredientRepo.findAll(paging).toList().morph()
-    }
-
-    fun addTestData(): List<MenuItemEntity> {
-        orderRepo.deleteAll()
-        customerRepo.deleteAll()
-        menuRepo.deleteAll()
-        ingredientRepo.deleteAll()
-
-        val customer1 = customerRepo.save(CustomerEntity("sergei.saal15@gmail.com", "123123123", "Sergei", "Saal", ""))
-        val customer2 = customerRepo.save(CustomerEntity("xsergeix123@yandex.ru", "123123123", "Sergei", "Saal", ""))
+    @Test
+    fun testMenuAndIngredientRepo() {
         val ings = listOf(
                 IngredientEntity("Beef", "ingredient.meat.beef", "meat"),
                 IngredientEntity("Chicken", "ingredient.meat.chicken", "meat"),
@@ -73,7 +71,10 @@ class KitchenService(
                 IngredientEntity("Wine sauce", "ingredient.misc.wine_sauce", "misc"),
                 IngredientEntity("Caesar sauce", "ingredient.misc.caesar_sauce", "misc")
         ).map { it.name to it }.toMap()
-        ingredientRepo.saveAll(ings.values)
+        ings.values.forEach {
+            entityManager.persist(it)
+        }
+
         val meals = listOf(
                 MenuItemEntity("Honey chicken", "meals.chicken_meals.honey_chicken", listOf(
                         "Chicken", "Garlic", "Honey", "Tomato", "Soy sauce"
@@ -88,9 +89,17 @@ class KitchenService(
                         "Beef", "Wine sauce", "Potato"
                 ).mapNotNull { ings[it] }, 13.5, 0.3)
         )
-        menuRepo.saveAll(meals)
-        orderRepo.save(OrderEntity("Sergei", "+37256666669", customer1))
-        orderRepo.save(OrderEntity("Vasja", "+37256789451", customer1))
-        return meals
+        meals.forEach {
+            entityManager.persist(it)
+        }
+        entityManager.flush()
+
+        Assertions.assertEquals(19, ings.size)
+        Assertions.assertEquals(4, meals.size)
+
+        Assertions.assertEquals("misc", ingRepo.findByName("Honey").type)
+        Assertions.assertEquals(listOf("gluten"), ingRepo.findByName("Breadcrumbs").allergens)
+        Assertions.assertEquals(4.5, menuRepo.findByName("Onion rings").price)
+        Assertions.assertEquals(3, menuRepo.findByName("Steak with roasted potatoes").ingredients.size)
     }
 }

@@ -11,8 +11,8 @@ data class MenuItemDto(
         val price: Double,
         val weight: Double,
         val keywords: List<String>
-): IMorphable<MenuItemEntity>{
-    constructor(e: MenuItemEntity): this(e.name, e.lang_key, e.ingredients.morph(), e.price, e.weight, e.keywords)
+) : IMorphable<MenuItemEntity> {
+    constructor(e: MenuItemEntity) : this(e.name, e.lang_key, e.ingredients.morph(), e.price, e.weight, e.keywords)
 
     override fun morph(): MenuItemEntity {
         return MenuItemEntity(this)
