@@ -70,9 +70,9 @@ class SheepFarm {
 
     fun removeSheep(
             @RequestParam id: Long
-    ): Sheep {
+    ) {
         // Removes the sheep from DB by given id.
-        return emptyMethodReturn1()
+        return emptyMethodVoid()
     }
 
     fun getSheep(
