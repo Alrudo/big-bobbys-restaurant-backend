@@ -22,18 +22,18 @@ class KitchenService(
         var orderRepo: OrderRepository,
         var customerRepo: CustomerRepository,
         var ingredientRepo: IngredientRepository
-){
+) {
 
     fun listDishes(page: Int, pageSize: Int): List<MenuItemDto> {
         val paging: Pageable = PageRequest.of(page, pageSize)
         return menuRepo.findAll(paging).toList().map { MenuItemDto(it) }
     }
 
-    fun searchDish(name: String): List<MenuItemDto> {
-        return menuRepo.findAll().toList().map { MenuItemDto(it) }
+    fun searchDish(name: String): MenuItemDto {
+        return menuRepo.findByName(name).morph()
     }
 
-    fun addNewDish(dish: MenuItemDto){
+    fun addNewDish(dish: MenuItemDto) {
         val dishEntity = dish.morph()
         menuRepo.save(dishEntity)
     }
@@ -93,5 +93,4 @@ class KitchenService(
         orderRepo.save(OrderEntity("Vasja", "+37256789451", customer1))
         return meals
     }
-
 }
