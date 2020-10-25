@@ -1,0 +1,5 @@
+build:
+  script:
+    - gradle build
+    - ls build/libs
+    - mv build/libs/big-bobbys-restaurant-backend-1.0.0.jar /tmp
