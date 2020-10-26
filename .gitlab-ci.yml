@@ -10,6 +10,6 @@ build:
 
 test:
   before_script:
-    - java -jar /tmp/big-bobbys-restaurant-backend-1.0.0.jar
+    - java -jar -Dspring.profiles.active=local /tmp/big-bobbys-restaurant-backend-1.0.0.jar
   script:
     - newman run /tmp/bigbobby_tests.postman_collection.json
