@@ -57,7 +57,7 @@
 							"\r",
 							"pm.test(\"First one is Honey Chicken with 5 ingredients\", function (){\r",
 							"    pm.response.to.have.jsonBody(\"[0].name\", \"Honey chicken\")\r",
-							"    pm.expect(pm.response.json()[0].ingredients.length).to.eql(3);\r",
+							"    pm.expect(pm.response.json()[0].ingredients.length).to.eql(5);\r",
 							"});"
 						],
 						"type": "text/javascript"
