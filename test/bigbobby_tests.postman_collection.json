@@ -1,0 +1,92 @@
+{
+	"info": {
+		"_postman_id": "96aa3126-ec98-4627-9afd-1639a859e58e",
+		"name": "BigBobby",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Init some data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c6a01dc7-5db9-41a6-b837-499651e34d5b",
+						"exec": [
+							"pm.test('Data created and meals retrieved', function () {\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.expect(pm.response.json().length).to.eql(4);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:6969/common/testdata",
+					"host": [
+						"localhost"
+					],
+					"port": "6969",
+					"path": [
+						"common",
+						"testdata"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get menu",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f310ac9d-0cb9-41bb-a195-2889c12f90ef",
+						"exec": [
+							"pm.test('Menu retrieved', function () {\r",
+							"    pm.response.to.be.ok;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Contains 4 meals\", function (){\r",
+							"    pm.expect(pm.response.json().length).to.eql(4);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"First one is Honey Chicken with 5 ingredients\", function (){\r",
+							"    pm.response.to.have.jsonBody(\"[0].name\", \"Honey chicken\")\r",
+							"    pm.expect(pm.response.json()[0].ingredients.length).to.eql(5);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:6969/menu",
+					"host": [
+						"localhost"
+					],
+					"port": "6969",
+					"path": [
+						"menu"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"id": "fcb1e7fc-978b-4c83-b3ac-a122bf745cf7",
+			"key": "token",
+			"value": null
+		}
+	],
+	"protocolProfileBehavior": {}
+}
