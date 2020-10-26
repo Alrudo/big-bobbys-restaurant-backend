@@ -23,7 +23,7 @@ deploy-prod:
     - master
   before_script:
     - sudo systemctl stop bobby-prod
-    - bash /home/root/bobby/move_to_prod.sh
+    - sudo bash /home/root/bobby/move_to_prod.sh
   script:
     - sudo systemctl start bobby-prod
     - bash /home/root/bobby/wait_for_prod_up.sh
