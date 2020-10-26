@@ -10,6 +10,9 @@ build:
 
 test:
   before_script:
-    - java -jar -Dspring.profiles.active=local /tmp/big-bobbys-restaurant-backend-1.0.0.jar
+    - systemctl start bobby-test
+    - bash /tmp/wait_for_test_up.sh
   script:
     - newman run /tmp/bigbobby_tests.postman_collection.json
+  after_script:
+    - systemctl stop bobby-test

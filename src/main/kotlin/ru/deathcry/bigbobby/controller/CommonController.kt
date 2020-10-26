@@ -17,5 +17,10 @@ class CommonController(
     fun addTestData(): List<MenuItemDto> {
         return kitchen.addTestData().morph()
     }
+
+    @GetMapping("/ping")
+    fun ping(): String {
+        return "OK"
+    }
        
 }
