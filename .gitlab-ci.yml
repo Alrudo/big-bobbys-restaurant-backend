@@ -1,5 +1,15 @@
+stages:
+  - build
+  - test
+
 build:
   script:
     - gradle build
     - ls build/libs
     - mv build/libs/big-bobbys-restaurant-backend-1.0.0.jar /tmp
+
+test:
+  before_script:
+    - java -jar /tmp/big-bobbys-restaurant-backend-1.0.0.jar
+  script:
+    - newman run /tmp/bigbobby_tests.postman_collection.json
