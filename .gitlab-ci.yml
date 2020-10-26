@@ -10,9 +10,9 @@ build:
 
 test:
   before_script:
-    - systemctl start bobby-test
+    - sudo systemctl start bobby-test
     - bash /tmp/wait_for_test_up.sh
   script:
     - newman run /tmp/bigbobby_tests.postman_collection.json
   after_script:
-    - systemctl stop bobby-test
+    - sudo systemctl stop bobby-test
