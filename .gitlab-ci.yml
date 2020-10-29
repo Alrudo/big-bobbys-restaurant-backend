@@ -4,23 +4,16 @@ stages:
   - deploy
 
 build:
-  only:
-    - master
   stage: build
   script:
-    - gradle build
-    - ls build/libs
-    - mv build/libs/big-bobbys-restaurant-backend-1.0.0.jar /tmp
+    - sh /home/root/bobby/build_back.sh
 
 test:
-  only:
-    - master
   stage: test
   before_script:
     - sudo systemctl start bobby-test
-    - sh /home/root/bobby/wait_for_test_up.sh
   script:
-    - newman run test/bigbobby_tests.postman_collection.json
+    - sh /home/root/bobby/test_back.sh
   after_script:
     - sudo systemctl stop bobby-test
 
@@ -28,9 +21,5 @@ deploy:
   only:
     - master
   stage: deploy
-  before_script:
-    - sudo systemctl stop bobby-prod
-    - sudo sh /home/root/bobby/move_to_prod.sh
   script:
-    - sudo systemctl start bobby-prod
-    - sh /home/root/bobby/wait_for_prod_up.sh
+    - sudo sh /home/root/bobby/deploy_back.sh
