@@ -34,10 +34,7 @@ class Chocolate {
 
     @PostMapping
     fun addCake(
-            @RequestParam size: String,
-            @RequestParam sweetness: String,
-            @RequestParam(required = false) ingredients: String?,
-            @RequestParam(required = false) toppings: String?
+            @RequestBody cake: Cake
     ): Cake {
         // Adds new cake to repo
         return emptyMethodReturn1()
@@ -45,6 +42,8 @@ class Chocolate {
 
     @GetMapping
     fun searchCakes(
+            @RequestParam size: String,
+            @RequestParam sweetness: String,
             @RequestParam(required = false) ingredients: String?,
             @RequestParam(required = false) toppings: String?
     ): List<Cake> {
@@ -69,10 +68,7 @@ class Chocolate {
     @PutMapping("/{id}")
     fun updateCake(
             @PathVariable id: Long,
-            @RequestParam(required = false) size: String?,
-            @RequestParam(required = false) sweetness: String?,
-            @RequestParam(required = false) ingredients: String?,
-            @RequestParam(required = false) toppings: String?
+            @RequestBody cake: Cake
     ): Cake {
         // finds cake by ID and updates it with Request Params
         return emptyMethodReturn1()

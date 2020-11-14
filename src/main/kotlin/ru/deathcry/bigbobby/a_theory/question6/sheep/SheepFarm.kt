@@ -2,6 +2,7 @@ package ru.deathcry.bigbobby.a_theory.question6.sheep
 
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.*
+import ru.deathcry.bigbobby.a_theory.question6.chocolate.Cake
 
 @Controller
 @RequestMapping("sheep")
@@ -59,9 +60,7 @@ class SheepFarm {
 
     @PostMapping
     fun addSheep(
-            @RequestParam name: String,
-            @RequestParam age: Int,
-            @RequestParam color: String
+            @RequestBody sheep: Sheep
     ): Sheep {
         // Creates new instance of Sheep, adds it to the DB and returns it as response.
         return emptyMethodReturn1()
