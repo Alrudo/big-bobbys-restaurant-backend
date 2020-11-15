@@ -9,7 +9,7 @@ import ru.deathcry.bigbobby.dto.MenuItemDto
 import ru.deathcry.bigbobby.service.KitchenService
 
 @RestController
-@RequestMapping("/menu")
+@RequestMapping({"/menu", "/menu2"})
 class MenuController(
         var kitchen: KitchenService
 ) {
