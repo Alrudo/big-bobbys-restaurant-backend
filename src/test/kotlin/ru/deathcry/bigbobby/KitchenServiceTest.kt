@@ -11,10 +11,7 @@ import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
 import ru.deathcry.bigbobby.model.IngredientEntity
 import ru.deathcry.bigbobby.model.MenuItemEntity
-import ru.deathcry.bigbobby.repository.CustomerRepository
-import ru.deathcry.bigbobby.repository.IngredientRepository
-import ru.deathcry.bigbobby.repository.MenuRepository
-import ru.deathcry.bigbobby.repository.OrderRepository
+import ru.deathcry.bigbobby.repository.*
 import ru.deathcry.bigbobby.service.KitchenService
 
 

@@ -1,0 +1,27 @@
+server:
+  error:
+    include-message: always
+    include-binding-errors: always
+  port: 8090
+
+spring:
+  h2:
+    console:
+      enabled: true
+      path: /h2_console
+  datasource:
+    url: jdbc:h2:file:~/h2/bobbys_db;AUTO_SERVER=TRUE
+    username: bobby
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  security:
+    basic:
+      enabled: false
+    oauth2:
+      resourceserver:
+        jwt:
+          key-value: classpath:bobby.pub
