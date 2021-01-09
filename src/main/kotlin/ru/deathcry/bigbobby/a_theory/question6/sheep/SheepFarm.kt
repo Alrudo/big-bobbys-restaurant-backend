@@ -2,7 +2,6 @@ package ru.deathcry.bigbobby.a_theory.question6.sheep
 
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.*
-import ru.deathcry.bigbobby.a_theory.question6.chocolate.Cake
 
 @Controller
 @RequestMapping("sheep")

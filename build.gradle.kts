@@ -22,7 +22,12 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-web")
-	runtimeOnly("com.h2database:h2")
+	implementation("org.springframework.boot:spring-boot-starter-validation")
+	implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
+	implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
+	implementation("org.springframework.security.oauth:spring-security-oauth2:2.3.4.RELEASE")
+	implementation("io.jsonwebtoken:jjwt:0.9.1")
+    runtimeOnly("com.h2database:h2")
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
 	}
@@ -36,7 +41,7 @@ tasks.withType<Test> {
 
 tasks.withType<KotlinCompile> {
 	kotlinOptions {
-		freeCompilerArgs = listOf("-Xjsr305=strict")
+		freeCompilerArgs = listOf("-Xjsr305=strict", "-Xemit-jvm-type-annotations")
 		jvmTarget = "1.8"
 	}
 }

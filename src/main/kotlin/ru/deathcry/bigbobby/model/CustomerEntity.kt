@@ -1,11 +1,13 @@
 package ru.deathcry.bigbobby.model
 
+import com.sun.istack.NotNull
 import javax.persistence.*
 
 @Entity
 @Table(name = "customers")
-public class CustomerEntity(
-    @Column(name = "email", length = 64)
+class CustomerEntity(
+    @Column(name = "email", length = 64, unique=true)
+    @NotNull
     val email: String = "",
 
     @Column(name = "password", length = 128)
