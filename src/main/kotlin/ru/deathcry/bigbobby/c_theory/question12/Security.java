@@ -15,7 +15,9 @@ public class Security {
     //todo C
     // For web (HTTP backend) Spring Security is configured as a ... ? Explain it.
     // Think or read how Spring Security checks are injection into your application.
-    // Configured as (one word):
-    // Description:
+    // Configured as (one word): Bean
+    // Description: A bean is an object that form the backbone of your application,
+    // that is instantiated, assembled, and otherwise managed by a Spring IoC container.
+
 
 }
