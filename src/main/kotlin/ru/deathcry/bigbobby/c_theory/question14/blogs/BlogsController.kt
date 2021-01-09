@@ -70,7 +70,7 @@ class BlogsController {
 
     //todo H create a method to update blog url (and nothing else)
     @PutMapping("/{name}/url", consumes = ["text/plain"])
-    fun updateBlog(@PathVariable name: String, @RequestBody url: String) {
+    fun updateBlogUrl(@PathVariable name: String, @RequestBody url: String) {
         // Updates url for blog specified by name
     }
 
