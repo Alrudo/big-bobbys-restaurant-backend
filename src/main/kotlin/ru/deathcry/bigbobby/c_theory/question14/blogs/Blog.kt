@@ -1,13 +1,11 @@
-package ru.deathcry.bigbobby.c_theory.question14.blogs;
+package ru.deathcry.bigbobby.c_theory.question14.blogs
 
-import java.util.List;
+class Blog {
+    private val name: String? = null
+    private val views: Int? = null
+    private val url: String? = null
+    private val tags: List<String>? = null
 
-public class Blog {
-
-    private String name;
-    private Integer views;
-    private String url;
-    private List<String> tags;
-//    ... many more
-    private Author author;
+    //    ... many more
+    private val author: Author? = null
 }

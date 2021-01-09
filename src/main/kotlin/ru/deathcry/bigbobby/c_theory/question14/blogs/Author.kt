@@ -1,7 +1,7 @@
-package ru.deathcry.bigbobby.c_theory.question14.blogs;
+package ru.deathcry.bigbobby.c_theory.question14.blogs
 
-public class Author {
-    private String displayName;
-    private String realName;
-    private Integer age;
+class Author {
+    private val displayName: String? = null
+    private val realName: String? = null
+    private val age: Int? = null
 }

@@ -3,7 +3,7 @@ package ru.deathcry.bigbobby.c_theory.question14.blogs
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.*
 
-@Controller
+@RestController
 @RequestMapping("/blogs")
 class BlogsController {
     //todo for question 14 there are 4 assignments in total
@@ -23,7 +23,12 @@ class BlogsController {
 
     //todo B create a method to query blogs (plural)
     @GetMapping
-    fun getAllPosts(): List<Blog>{
+    fun getAllPosts(
+        @RequestParam page: Int = 1,
+        @RequestParam size: Int = 20,
+        @RequestParam sortByColumn: String = "views",
+        @RequestParam order: String = "desc"
+    ): List<Blog>{
         // call some `BlogsService` function, that would fetch data using BlogsRepository.findAll()
         return listOf()
     }
@@ -57,15 +62,29 @@ class BlogsController {
     }
 
     //todo G assuming each blog has only 1 author (one-to-one relation) create a method to query blog's author
+    @GetMapping("/{name}/author")
+    fun getAuthorByBlog(@PathVariable name: String): Author?{
+        // call some `BlogsService` function, that would fetch Blog by name and then return Author from it
+        return null
+    }
 
     //todo H create a method to update blog url (and nothing else)
+    @PutMapping("/{name}/url", consumes = ["text/plain"])
+    fun updateBlog(@PathVariable name: String, @RequestBody url: String) {
+        // Updates url for blog specified by name
+    }
 
     //todo I-J modify correct method to support pagination, pagination is done by page and size
+    // Function at task B was modified
+
     //todo I add page (pagination starts at page 1)
+    // Function at task B was modified
     //todo J add size (default page size is 20)
+    // Function at task B was modified
 
     //todo K modify correct method to order blogs
     // * by most recent first
     // * by least recent first
     // (you can assume that by default it searches by most popular first)
+    // Function at task B was modified
 }
