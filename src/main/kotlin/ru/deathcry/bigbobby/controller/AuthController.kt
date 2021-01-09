@@ -1,6 +1,5 @@
 package ru.deathcry.bigbobby.controller
 
-import netscape.security.ForbiddenTargetException
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.authority.SimpleGrantedAuthority
@@ -26,7 +25,7 @@ class AuthController(
     fun firstPage(authentication: Authentication): String {
         val userDetails = authentication.principal as UserDetails
         if(!userDetails.authorities.contains(SimpleGrantedAuthority("USER"))){
-            throw ForbiddenTargetException("Not enough permissions")
+            throw Exception("Not enough permissions")
         }
         return "Hello World"
     }
