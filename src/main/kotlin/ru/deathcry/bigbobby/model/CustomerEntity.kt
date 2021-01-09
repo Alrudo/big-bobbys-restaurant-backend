@@ -1,6 +1,7 @@
 package ru.deathcry.bigbobby.model
 
 import com.sun.istack.NotNull
+import ru.deathcry.bigbobby.util.Authorities
 import javax.persistence.*
 
 @Entity
@@ -25,6 +26,8 @@ class CustomerEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0
+
+    fun getAuthorities() = listOf(Authorities.USER)
 
     override fun toString(): String {
         return "Customer[id=${id}, firstName=${firstName}, lastName=${lastName}]"

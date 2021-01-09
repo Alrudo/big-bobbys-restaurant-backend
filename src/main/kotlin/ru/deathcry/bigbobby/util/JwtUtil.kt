@@ -3,8 +3,8 @@ package ru.deathcry.bigbobby.util
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
-import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Service
+import ru.deathcry.bigbobby.model.CustomerEntity
 import java.util.*
 import java.util.function.Function
 import kotlin.collections.HashMap
@@ -37,20 +37,21 @@ class JwtUtil {
         return extractExpiration(token)?.before(Date()) == true
     }
 
-    fun generateToken(userDetails: UserDetails): String {
+    fun generateToken(userDetails: CustomerEntity): String {
         val claims: HashMap<String, Any> = HashMap()
-        claims["scope"] = userDetails.authorities.map { it.authority }
-        return createToken(claims, userDetails.username)
+        claims["firstname"] = userDetails.firstName
+        claims["scope"] = userDetails.getAuthorities().map { it.authority }
+        return createToken(claims, userDetails.email)
     }
 
     private fun createToken(claims: Map<String, Any>, subject: String): String {
         return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(Date(System.currentTimeMillis()))
-            .setExpiration(Date(System.currentTimeMillis() + 1000 * 60 * 30))
+            .setExpiration(Date(System.currentTimeMillis() + 1000 * 60 * 60))
             .signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact()
     }
 
-    fun validateToken(token: String, userDetails: UserDetails): Boolean {
+    fun validateToken(token: String, userDetails: CustomerEntity): Boolean {
         val username = extractUsername(token)
-        return username == userDetails.username && !isTokenExpired(token)
+        return username == userDetails.email && !isTokenExpired(token)
     }
 }

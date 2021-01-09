@@ -3,10 +3,10 @@ package ru.deathcry.bigbobby.filter
 import io.jsonwebtoken.ExpiredJwtException
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
-import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
+import ru.deathcry.bigbobby.model.CustomerEntity
 import ru.deathcry.bigbobby.service.CustomerService
 import ru.deathcry.bigbobby.util.JwtUtil
 import java.io.IOException
@@ -35,10 +35,10 @@ class JwtRequestFilter(
             }
         }
         if (email != null && SecurityContextHolder.getContext().authentication == null) {
-            val userDetails: UserDetails = customerService.loadUserByUsername(email)
-            if (jwt != null && jwtUtil.validateToken(jwt, userDetails)) {
+            val customer: CustomerEntity = customerService.getUserByEmail(email)
+            if (jwt != null && jwtUtil.validateToken(jwt, customer)) {
                 val jwtToken = UsernamePasswordAuthenticationToken(
-                    userDetails, null, userDetails.authorities
+                    customer, null, customer.getAuthorities()
                 )
                 jwtToken.details = WebAuthenticationDetailsSource().buildDetails(request)
                 SecurityContextHolder.getContext().authentication = jwtToken

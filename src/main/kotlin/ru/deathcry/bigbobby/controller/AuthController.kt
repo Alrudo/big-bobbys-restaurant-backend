@@ -3,12 +3,12 @@ package ru.deathcry.bigbobby.controller
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.authority.SimpleGrantedAuthority
-import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.web.bind.annotation.*
 import ru.deathcry.bigbobby.dto.AuthenticationResponseDto
 import ru.deathcry.bigbobby.dto.ErrorMessageDto
 import ru.deathcry.bigbobby.dto.RegistrationRequestDto
 import ru.deathcry.bigbobby.dto.SuccessMessageDto
+import ru.deathcry.bigbobby.model.CustomerEntity
 import ru.deathcry.bigbobby.service.CustomerService
 import ru.deathcry.bigbobby.util.JwtUtil
 import java.nio.charset.StandardCharsets
@@ -23,8 +23,8 @@ class AuthController(
 ) {
     @RequestMapping("/hello")
     fun firstPage(authentication: Authentication): String {
-        val userDetails = authentication.principal as UserDetails
-        if(!userDetails.authorities.contains(SimpleGrantedAuthority("USER"))){
+        val userDetails = authentication.principal as CustomerEntity
+        if(!userDetails.getAuthorities().contains(SimpleGrantedAuthority("USER"))){
             throw Exception("Not enough permissions")
         }
         return "Hello World"
@@ -41,12 +41,12 @@ class AuthController(
         val credentials = String(credDecoded, StandardCharsets.UTF_8)
         val values = credentials.split(":", limit = 2)
 
-        val userDetails: UserDetails
+        val userDetails: CustomerEntity
         try {
             if(!customerService.checkAuthCredentials(values[0], values[1])){
                 throw Exception("Vale email või password")
             }
-            userDetails = customerService.loadUserByUsername(values[0])
+            userDetails = customerService.getUserByEmail(values[0])
         } catch (e: Exception) {
             return ErrorMessageDto(e.message?:"Unknown").response(400)
         }

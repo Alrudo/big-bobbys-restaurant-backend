@@ -1,10 +1,11 @@
 package ru.deathcry.bigbobby.controller
 
-import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.security.core.Authentication
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import ru.deathcry.bigbobby.dto.MenuItemDto
+import ru.deathcry.bigbobby.model.CustomerEntity
 import ru.deathcry.bigbobby.service.KitchenService
 import ru.deathcry.bigbobby.util.morph
 
@@ -20,8 +21,9 @@ class CommonController(
     }
 
     @GetMapping("/ping")
-    fun ping(): String {
-        return "OK + " + SecurityContextHolder.getContext().authentication.authorities
+    fun ping(authentication: Authentication): String {
+        val userDetails = authentication.principal as CustomerEntity
+        return "OK + " + userDetails.getAuthorities()
     }
        
 }
